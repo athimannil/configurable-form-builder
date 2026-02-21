@@ -16,7 +16,8 @@
     "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
     "test:run": "vitest run",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "check-all": "npm run type-check && npm run lint && npm run test:run && npm run build"
   },
   "dependencies": {
     "react": "^19.2.0",
