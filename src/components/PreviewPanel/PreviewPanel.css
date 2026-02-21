@@ -1,0 +1,33 @@
+.preview-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #1f2937;
+  color: #fff;
+  overflow: hidden;
+}
+
+.preview-panel-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.preview-panel-title-text {
+  margin: 0;
+}
+
+.preview-panel-title-live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+.preview-panel-content {
+  flex: 1;
+  padding: 16px;
+}

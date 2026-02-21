@@ -16,9 +16,7 @@
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   flex-direction: column;
-  min-width: 320px;
   min-height: 100vh;
 }
 
@@ -31,11 +29,5 @@ h1 {
   :root {
     color: #213547;
     background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
   }
 }
