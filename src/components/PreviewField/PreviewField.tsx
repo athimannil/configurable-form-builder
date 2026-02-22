@@ -5,10 +5,12 @@ import './PreviewField.css';
 
 const PreviewField: FC<{
   field: FormField;
+  values: Record<string, string>;
+  errors: Record<string, string>;
   onChange: (id: string, value: string) => void;
-}> = ({ field, onChange }) => {
-  console.log('-------field-----------');
-  console.log(field);
+}> = ({ field, values, errors, onChange }) => {
+  // console.log('-------field-----------');
+  // console.log(field);
 
   if (field.type === 'group') {
     return (
@@ -21,13 +23,25 @@ const PreviewField: FC<{
             <p>No fields in this group</p>
           ) : (
             field.children.map((child) => {
-              return <PreviewField key={child.id} field={child} />;
+              return (
+                <PreviewField
+                  key={child.id}
+                  field={child}
+                  values={values}
+                  errors={errors}
+                  onChange={onChange}
+                />
+              );
             })
           )}
         </div>
       </div>
     );
   }
+  const value = values[field.id] || '';
+  const error = errors[field.id] ? (
+    <span className="previewField-error">{errors[field.id]}</span>
+  ) : null;
 
   return (
     <div className="previewField">
@@ -41,11 +55,13 @@ const PreviewField: FC<{
         id={field.id}
         type={field?.type === 'text' ? 'text' : 'number'}
         className="previewField-input"
+        value={value}
         onChange={({ target }) => onChange(field.id, target.value)}
         placeholder={`Enter ${field.label.toLowerCase() || 'value'}...`}
         min={field?.type === 'number' ? field.min : undefined}
         max={field?.type === 'number' ? field.max : undefined}
       />
+      {error && <div className="previewField-error">{error}</div>}
     </div>
   );
 };

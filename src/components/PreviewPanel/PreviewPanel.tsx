@@ -1,15 +1,24 @@
-import type { FC } from 'react';
+import { type FC } from 'react';
 
-import './PreviewPanel.css';
 import PreviewField from '@/components/PreviewField';
+import useFormPreview from '@/hooks/useFormPreview';
 import type { FormField } from '@/types/fields';
 
-const PreviewPanel: FC<{ fields: FormField[] }> = ({ fields }) => {
-  // console.log('PreviewPanel fields:', fields);
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    console.log('validate fot the fields');
-  };
+import './PreviewPanel.css';
+
+interface PreviewPanelProps {
+  fields: FormField[];
+  error?: string;
+}
+
+const PreviewPanel: FC<PreviewPanelProps> = ({ fields }) => {
+  const { handleSubmit, handleChange, handleReset, values, errors, submitted } =
+    useFormPreview(fields);
+
+  console.log('------------PreviewPanel------------');
+  console.log('errors: ', errors);
+  console.log('values: ', values);
+  console.log('submitted: ', submitted);
 
   if (fields.length === 0) {
     return (
@@ -26,6 +35,7 @@ const PreviewPanel: FC<{ fields: FormField[] }> = ({ fields }) => {
       </section>
     );
   }
+
   return (
     <section className="preview-panel">
       <div className="preview-panel__header">
@@ -33,16 +43,30 @@ const PreviewPanel: FC<{ fields: FormField[] }> = ({ fields }) => {
         <span className="preview-panel__title-live" />
       </div>
       <div className="preview-panel__content">
-        <form className="preview-panel__form" onSubmit={handleSubmit}>
+        <form
+          className="preview-panel__form"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           {fields.map((field) => (
-            <PreviewField key={field.id} field={field} />
+            <PreviewField
+              key={field.id}
+              field={field}
+              values={values}
+              errors={errors}
+              onChange={handleChange}
+            />
           ))}
 
           <div className="preview-panel__submit-container">
             <button type="submit" className="preview-panel__submit-button">
               Submit
             </button>
-            <button type="reset" className="preview-panel__reset-button">
+            <button
+              type="reset"
+              className="preview-panel__reset-button"
+              onClick={handleReset}
+            >
               Reset
             </button>
           </div>

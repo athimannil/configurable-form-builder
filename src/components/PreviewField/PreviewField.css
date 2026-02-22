@@ -29,6 +29,12 @@
   outline: none;
 }
 
+.previewField-error {
+  color: var(--destructive);
+  font-size: 0.75rem;
+  margin-top: -4px;
+}
+
 .previewField-group {
   border-radius: var(--radius-lg);
   border: 1px solid var(--border);
