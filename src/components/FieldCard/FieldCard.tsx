@@ -4,12 +4,13 @@ import FieldList from '../FieldList';
 
 import { FormBuilderContext } from '@/context/FormBuilderContext';
 import './FieldCard.css';
-import type { FormField, GroupField } from '@/types/fields';
+import type { FieldType, FormField, GroupField } from '@/types/fields';
 
 interface FieldCardProps {
   field: FormField;
   index: number;
   total: number;
+  parentId?: string;
   depth: number;
 }
 
@@ -25,6 +26,10 @@ const FieldCard: FC<FieldCardProps> = ({ field, index, total, depth = 0 }) => {
 
   const handDeleteField = (fieldId: string) => {
     dispatch({ type: 'DELETE_FIELD', payload: { fieldId } });
+  };
+
+  const handleFieldChange = (fieldId: string, changes: Partial<FormField>) => {
+    dispatch({ type: 'UPDATE_FIELD', payload: { fieldId, updates: changes } });
   };
 
   return (
@@ -78,7 +83,9 @@ const FieldCard: FC<FieldCardProps> = ({ field, index, total, depth = 0 }) => {
             className="field-card__input"
             value={field.label}
             placeholder="Field label"
-            onChange={() => {}}
+            onChange={({ target }) =>
+              handleFieldChange(field.id, { label: target.value })
+            }
           />
         </div>
         <div className="field-card__row">
@@ -90,7 +97,9 @@ const FieldCard: FC<FieldCardProps> = ({ field, index, total, depth = 0 }) => {
               type="checkbox"
               className="field-card__checkbox"
               checked={field.required}
-              onChange={() => {}}
+              onChange={() =>
+                handleFieldChange(field.id, { required: !field.required })
+              }
             />
           </label>
         </div>
@@ -103,7 +112,11 @@ const FieldCard: FC<FieldCardProps> = ({ field, index, total, depth = 0 }) => {
                 className="field-card__input"
                 value={field.min ?? ''}
                 placeholder="Minimum value"
-                onChange={() => {}}
+                onChange={({ target }) =>
+                  handleFieldChange(field.id, {
+                    min: target.value ? Number(target.value) : undefined,
+                  })
+                }
               />
             </div>
             <div className="field-card__row">
@@ -113,7 +126,11 @@ const FieldCard: FC<FieldCardProps> = ({ field, index, total, depth = 0 }) => {
                 className="field-card__input"
                 value={field.max ?? ''}
                 placeholder="Maximum value"
-                onChange={() => {}}
+                onChange={({ target }) =>
+                  handleFieldChange(field.id, {
+                    max: target.value ? Number(target.value) : undefined,
+                  })
+                }
               />
             </div>
           </>
@@ -125,7 +142,7 @@ const FieldCard: FC<FieldCardProps> = ({ field, index, total, depth = 0 }) => {
           <p className="field-card__children-title">Children</p>
 
           <FieldList
-            fields={(field as GroupField).children}
+            fields={(field as GroupField).children as unknown as FieldType[]}
             parentId={field.id}
             depth={depth + 1}
           />

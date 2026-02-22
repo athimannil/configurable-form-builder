@@ -1,0 +1,50 @@
+.previewField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.previewField-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.previewField-label-required {
+  color: var(--destructive);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.previewField-input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--input-border);
+  background: var(--card);
+  outline: none;
+}
+
+.previewField-group {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.previewField-group--header {
+  background: var(--muted);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.previewField-group--body {
+  background-color: #f8fafc;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

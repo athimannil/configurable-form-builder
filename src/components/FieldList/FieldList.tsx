@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { FormBuilderContext } from '@/context/FormBuilderContext';
 import './FieldList.css';
-import type { FieldType } from '@/types/fields';
+import type { FieldType, FormField } from '@/types/fields';
 import { createField } from '@/utils/fieldFactory';
 import FieldCard from '@/components/FieldCard';
 
@@ -13,7 +13,7 @@ const FieldList = ({
   parentId,
   depth = 0,
 }: {
-  fields: FieldType[];
+  fields: FormField[];
   parentId?: string;
   depth?: number;
 }) => {

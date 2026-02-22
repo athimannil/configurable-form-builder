@@ -5,7 +5,23 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: hsl(0, 0%, 14%);
+
+  /* Brand */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-foreground: #ffffff;
+
+  --background: #f5f7fa;
+  --foreground: #1a1d23;
+  --card: #ffffff;
+  --card-foreground: #1a1d23;
+
+  --border: #e2e5ea;
+  --input-border: #d1d5db;
+
+  /* Status */
+  --destructive: #dc2626;
 
   /* Builder tokens */
   --builder-bg: #111827;

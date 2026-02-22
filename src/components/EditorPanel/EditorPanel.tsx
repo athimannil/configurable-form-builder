@@ -1,16 +1,12 @@
-import { useContext } from 'react';
+import { type FC } from 'react';
 
 import FieldList from '@/components/FieldList';
-import { FormBuilderContext } from '@/context/FormBuilderContext';
-
+import type { FormField } from '@/types/fields';
 import './EditorPanel.css';
 
-const EditorPanel = () => {
-  const context = useContext(FormBuilderContext);
-  const fields = context?.state.fields ?? [];
-
+const EditorPanel: FC<{ fields: FormField[] }> = ({ fields }) => {
   return (
-    <div className="editor-panel">
+    <div className="editor-panel" role="list">
       <h2 className="editor-panel__title">Builder</h2>
       <div className="editor-panel__content">
         <FieldList fields={fields} />
