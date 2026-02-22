@@ -7,10 +7,39 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
+  /* Builder tokens */
+  --builder-bg: #111827;
+  --builder-fg: #d1d5db;
+  --builder-border: rgba(255, 255, 255, 0.08);
+  --builder-muted: rgba(255, 255, 255, 0.35);
+  --builder-input-bg: rgba(0, 0, 0, 0.3);
+  --builder-input-border: rgba(255, 255, 255, 0.1);
+  --builder-hover: rgba(255, 255, 255, 0.05);
+
+  /* Badge tokens */
+  --badge-text-bg: rgba(59, 130, 246, 0.15);
+  --badge-text-color: #60a5fa;
+  --badge-text-border: rgba(59, 130, 246, 0.3);
+  --badge-number-bg: rgba(16, 185, 129, 0.15);
+  --badge-number-color: #34d399;
+  --badge-number-border: rgba(16, 185, 129, 0.3);
+  --badge-group-bg: rgba(245, 158, 11, 0.15);
+  --badge-group-color: #fbbf24;
+  --badge-group-border: rgba(245, 158, 11, 0.3);
+
+  /* Radius tokens */
+  --radius: 8px;
+  --radius-sm: 4px;
+  --radius-lg: 12px;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {

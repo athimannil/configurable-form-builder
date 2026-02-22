@@ -13,7 +13,7 @@ describe('fieldFactory', () => {
         label: '',
         required: false,
       });
-      expect(field.id).toHaveLength(36); // UUID length
+      expect(field.id).toHaveLength(36);
     });
 
     it('creates number field with correct defaults', () => {

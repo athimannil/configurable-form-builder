@@ -7,27 +7,33 @@
   overflow: hidden;
 }
 
-.preview-panel-title {
+.preview-panel__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   font-size: 0.7rem;
   font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.preview-panel-title-text {
+.preview-panel__title {
   margin: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
 }
 
-.preview-panel-title-live {
+.preview-panel__live-indicator {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: #22c55e;
 }
 
-.preview-panel-content {
+.preview-panel__content {
   flex: 1;
   padding: 16px;
 }

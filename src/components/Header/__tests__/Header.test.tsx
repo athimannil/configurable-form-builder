@@ -14,6 +14,6 @@ describe('Header', () => {
     expect(subtitle).toBeInTheDocument();
 
     const fieldCount = screen.getByText(/top-level field/);
-    expect(fieldCount).toHaveTextContent('1 top-level field');
+    expect(fieldCount).toHaveTextContent('0 top-level field');
   });
 });

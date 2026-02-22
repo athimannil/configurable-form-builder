@@ -1,29 +1,29 @@
 .header {
-  background-color: '#111827';
-  border-bottom: '1px solid rgba(255,255,255,0.08)';
+  background-color: #111827;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 
-.header-content {
+.header__content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 14px 24px;
 }
 
-.header-title {
+.header__title {
   font-size: 1.1rem;
   font-weight: 700;
   margin: 0;
   letter-spacing: -0.02em;
 }
 
-.header-subtitle {
+.header__subtitle {
   font-size: 0.72rem;
   margin: 2px 0 0;
 }
 
-.header-field-count {
+.header__field-count {
   font-size: 0.72rem;
   font-weight: 600;
   background-color: rgba(59, 130, 246, 0.15);

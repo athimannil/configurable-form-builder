@@ -1,0 +1,184 @@
+.field-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #1c2030;
+  transition: border-color 0.15s;
+}
+
+.field-card--group {
+  border-color: rgba(245, 158, 11, 0.25);
+  background: #1a1f2e;
+}
+
+.field-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.field-card__header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.field-card__header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.field-card__btn-sm {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  color: rgba(255, 255, 255, 0.4);
+  background: transparent;
+  border: none;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.field-card__btn-sm:disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.field-card__btn-sm--delete:hover {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.field-card__btn-collapse {
+  width: 16px;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.field-card__badge {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-family: 'JetBrains Mono', monospace;
+  flex-shrink: 0;
+}
+
+.field-card__badge--text {
+  background: var(--badge-text-bg);
+  color: var(--badge-text-color);
+  border: 1px solid var(--badge-text-border);
+}
+
+.field-card__badge--number {
+  background: var(--badge-number-bg);
+  color: var(--badge-number-color);
+  border: 1px solid var(--badge-number-border);
+}
+
+.field-card__badge--group {
+  background: var(--badge-group-bg);
+  color: var(--badge-group-color);
+  border: 1px solid var(--badge-group-border);
+}
+
+.field-card__title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.field-card__title--empty {
+  color: rgba(255, 255, 255, 0.3);
+  font-style: italic;
+}
+
+.field-card__body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-card__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.field-card__label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--builder-muted);
+  width: 48px;
+  flex-shrink: 0;
+}
+
+.field-card__input {
+  flex: 1;
+  background: var(--builder-input-bg);
+  border: 1px solid var(--builder-input-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.field-card__input:focus {
+  border-color: rgba(37, 99, 235, 0.5);
+}
+
+.field-card__checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.field-card__checkbox {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.field-card__checkbox-text {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.field-card__children {
+  border: 1px dashed rgba(245, 158, 11, 0.25);
+  border-radius: var(--radius);
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.field-card__children-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(251, 191, 36, 0.6);
+  margin-bottom: 8px;
+}
