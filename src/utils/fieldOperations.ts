@@ -1,3 +1,5 @@
+import generateId from './idGenerator';
+
 import type { FormField } from '@/types/fields';
 
 export function findFieldById(
@@ -118,5 +120,19 @@ export function moveField(
       };
     }
     return field;
+  });
+}
+
+export function assignNewIds(fields: FormField[]): FormField[] {
+  return fields.map((field) => {
+    const newId = generateId();
+    if (field.type === 'group') {
+      return {
+        ...field,
+        id: newId,
+        children: assignNewIds(field.children),
+      };
+    }
+    return { ...field, id: newId };
   });
 }

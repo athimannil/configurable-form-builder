@@ -9,9 +9,6 @@ const PreviewField: FC<{
   errors: Record<string, string>;
   onChange: (id: string, value: string) => void;
 }> = ({ field, values, errors, onChange }) => {
-  // console.log('-------field-----------');
-  // console.log(field);
-
   if (field.type === 'group') {
     return (
       <div className="previewField-group">

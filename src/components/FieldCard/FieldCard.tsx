@@ -4,7 +4,7 @@ import FieldList from '../FieldList';
 
 import { FormBuilderContext } from '@/context/FormBuilderContext';
 import './FieldCard.css';
-import type { FieldType, FormField, GroupField } from '@/types/fields';
+import type { FormField, GroupField } from '@/types/fields';
 
 interface FieldCardProps {
   field: FormField;
@@ -142,7 +142,7 @@ const FieldCard: FC<FieldCardProps> = ({ field, index, total, depth = 0 }) => {
           <p className="field-card__children-title">Children</p>
 
           <FieldList
-            fields={(field as GroupField).children as unknown as FieldType[]}
+            fields={(field as GroupField).children}
             parentId={field.id}
             depth={depth + 1}
           />

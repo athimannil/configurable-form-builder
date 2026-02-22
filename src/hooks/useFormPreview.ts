@@ -16,8 +16,6 @@ const getLeafFieldIds = (fields: FormField[]): string[] => {
 };
 
 const useFormPreview = (fields: FormField[]) => {
-  // console.log('--------useFormPreview fields--------');
-  // console.log(fields);
   const [values, setValues] = useState({});
   const [showError, setShowError] = useState(false);
   const [submitted, setSubmitted] = useState(false);

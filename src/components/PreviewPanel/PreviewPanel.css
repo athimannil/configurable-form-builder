@@ -60,9 +60,21 @@
   gap: 16px;
 }
 
+.preview-panel__submit-success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--success);
+  background: var(--success-bg);
+  border: 1px solid var(--success-border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+}
+
 .preview-panel__submit-container {
   display: flex;
-  /* justify-content: flex-end; */
   gap: 12px;
 }
 .preview-panel__submit-button {

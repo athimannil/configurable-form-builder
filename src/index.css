@@ -22,6 +22,12 @@
 
   /* Status */
   --destructive: #dc2626;
+  --success: #16a34a;
+  --success-bg: #f0fdf4;
+  --success-border: #bbf7d0;
+  --warning: #f59e0b;
+  --error-bg: #fef2f2;
+  --error-border: #fecaca;
 
   /* Builder tokens */
   --builder-bg: #111827;

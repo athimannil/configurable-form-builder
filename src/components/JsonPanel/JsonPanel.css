@@ -1,0 +1,108 @@
+.json-panel {
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.json-panel__button-group {
+  display: flex;
+  gap: 8px;
+}
+
+.json-panel__button {
+  flex: 1;
+  padding: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+}
+
+.json-panel__button--active {
+  background: rgba(37, 99, 235, 0.2);
+  color: #60a5fa;
+  border: 1px solid rgba(37, 99, 235, 0.4);
+}
+.json-panel__button--inactive {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.json-panel__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.json-panel__body-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.json-panel__body-section-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.json-panel__export-copy-button {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.json-panel__apply-button {
+  align-self: flex-start;
+  padding: 8px 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.json-panel__apply-button:hover {
+  background: var(--primary-hover);
+}
+
+.json-panel__textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--builder-input-border);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  font-size: 11px;
+  color: #34d399;
+  font-family: 'JetBrains Mono', monospace;
+  resize: vertical;
+  outline: none;
+  line-height: 1.6;
+}
+
+.json-panel__textarea:focus {
+  border-color: var(--primary);
+}
+
+.json-panel__error {
+  font-size: 0.75rem;
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+}

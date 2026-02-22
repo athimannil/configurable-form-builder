@@ -15,11 +15,6 @@ const PreviewPanel: FC<PreviewPanelProps> = ({ fields }) => {
   const { handleSubmit, handleChange, handleReset, values, errors, submitted } =
     useFormPreview(fields);
 
-  console.log('------------PreviewPanel------------');
-  console.log('errors: ', errors);
-  console.log('values: ', values);
-  console.log('submitted: ', submitted);
-
   if (fields.length === 0) {
     return (
       <section className="preview-panel">
@@ -58,12 +53,18 @@ const PreviewPanel: FC<PreviewPanelProps> = ({ fields }) => {
             />
           ))}
 
+          {submitted && Object.keys(errors).length === 0 && (
+            <div className="preview-panel__submit-success">
+              Form submitted successfully!
+            </div>
+          )}
+
           <div className="preview-panel__submit-container">
             <button type="submit" className="preview-panel__submit-button">
               Submit
             </button>
             <button
-              type="reset"
+              type="button"
               className="preview-panel__reset-button"
               onClick={handleReset}
             >

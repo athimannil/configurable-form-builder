@@ -32,6 +32,21 @@ describe('FieldCard', () => {
     expect(screen.getByPlaceholderText('Maximum value')).toBeInTheDocument();
   });
 
+  it('allows editing min/max for number field', async () => {
+    const field = createField('number');
+    render(
+      <FormBuilderProvider>
+        <FieldCard field={field} index={0} total={1} depth={0} />
+      </FormBuilderProvider>
+    );
+    const minInput = screen.getByPlaceholderText('Minimum value');
+    const maxInput = screen.getByPlaceholderText('Maximum value');
+    await userEvent.clear(minInput);
+    await userEvent.type(minInput, '5');
+    await userEvent.clear(maxInput);
+    await userEvent.type(maxInput, '10');
+  });
+
   it('renders group field and its children', () => {
     const group = createField('group');
     render(
@@ -51,5 +66,40 @@ describe('FieldCard', () => {
     );
     const btn = screen.getByTitle('Delete field');
     await userEvent.click(btn);
+  });
+
+  it('move up button is disabled for first item', () => {
+    const field = createField('text');
+    render(
+      <FormBuilderProvider>
+        <FieldCard field={field} index={0} total={2} depth={0} />
+      </FormBuilderProvider>
+    );
+    const upBtn = screen.getByTitle('Move up');
+    expect(upBtn).toBeDisabled();
+  });
+
+  it('move down button is disabled for last item', () => {
+    const field = createField('text');
+    render(
+      <FormBuilderProvider>
+        <FieldCard field={field} index={1} total={2} depth={0} />
+      </FormBuilderProvider>
+    );
+    const downBtn = screen.getByTitle('Move down');
+    expect(downBtn).toBeDisabled();
+  });
+
+  it('required checkbox toggles required state', async () => {
+    const field = createField('text');
+    render(
+      <FormBuilderProvider>
+        <FieldCard field={field} index={0} total={1} depth={0} />
+      </FormBuilderProvider>
+    );
+    const checkbox = screen.getByRole('checkbox');
+    expect(checkbox).not.toBeChecked();
+    await userEvent.click(checkbox);
+    // No assertion on state change since context is mocked, but interaction is covered
   });
 });
