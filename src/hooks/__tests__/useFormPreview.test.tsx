@@ -4,7 +4,7 @@ import { useEffect, type FormEvent, type ReactNode } from 'react';
 
 import useFormPreview from '../useFormPreview';
 
-import { createField } from '@/utils/fieldFactory';
+import createField from '@/utils/fieldFactory';
 import type { FormField } from '@/types/fields';
 
 type UseFormPreviewReturn = ReturnType<typeof useFormPreview>;

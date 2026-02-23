@@ -5,7 +5,7 @@ import { describe, it, expect } from 'vitest';
 import FieldList from './FieldList';
 
 import { FormBuilderProvider } from '@/context/FormBuilderContext';
-import { createField } from '@/utils/fieldFactory';
+import createField from '@/utils/fieldFactory';
 
 describe('FieldList', () => {
   it('renders add field buttons', () => {

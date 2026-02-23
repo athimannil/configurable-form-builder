@@ -3,6 +3,8 @@ import { describe, it, expect } from 'vitest';
 
 import PreviewPanel from './PreviewPanel';
 
+import type { FormField } from '@/types/fields';
+
 describe('PreviewPanel', () => {
   it('renders live preview section', () => {
     render(<PreviewPanel fields={[]} />);
@@ -14,7 +16,7 @@ describe('PreviewPanel', () => {
     const fields = [
       { id: '1', type: 'text', label: 'Name', required: false },
       { id: '2', type: 'number', label: 'Age', required: false },
-    ];
+    ] as FormField[];
     render(<PreviewPanel fields={fields} />);
     expect(document.querySelector('form')).toBeInTheDocument();
     expect(screen.getByText('Name')).toBeInTheDocument();
@@ -24,7 +26,9 @@ describe('PreviewPanel', () => {
   });
 
   it('shows success message after submit with no errors', async () => {
-    const fields = [{ id: '1', type: 'text', label: 'Name', required: false }];
+    const fields = [
+      { id: '1', type: 'text', label: 'Name', required: false },
+    ] as FormField[];
     render(<PreviewPanel fields={fields} />);
     const submitBtn = screen.getByRole('button', { name: /Submit/i });
     await act(async () => {
@@ -37,7 +41,9 @@ describe('PreviewPanel', () => {
   });
 
   it('calls reset handler when reset button is clicked', async () => {
-    const fields = [{ id: '1', type: 'text', label: 'Name', required: false }];
+    const fields = [
+      { id: '1', type: 'text', label: 'Name', required: false },
+    ] as FormField[];
     render(<PreviewPanel fields={fields} />);
     const resetBtn = screen.getByRole('button', { name: /Reset/i });
     await act(async () => {

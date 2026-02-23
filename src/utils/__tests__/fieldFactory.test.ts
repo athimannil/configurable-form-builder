@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
-import { createField } from '../fieldFactory';
+import createField from '@/utils/fieldFactory';
+import type { FieldType } from '@/types/fields';
 
 describe('fieldFactory', () => {
   it('creates text field with correct defaults', () => {
@@ -48,6 +49,8 @@ describe('fieldFactory', () => {
   });
 
   it('throws error for unknown field type', () => {
-    expect(() => createField('unknown')).toThrow('Unknown field type: unknown');
+    expect(() => createField('unknown' as FieldType)).toThrow(
+      'Unknown field type: unknown'
+    );
   });
 });

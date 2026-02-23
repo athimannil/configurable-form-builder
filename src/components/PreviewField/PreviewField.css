@@ -55,8 +55,9 @@
 }
 
 .previewField-group--header {
-  background: var(--muted);
+  color: #334155;
   padding: 10px 16px;
+  background: var(--muted);
   border-bottom: 1px solid var(--border);
 }
 

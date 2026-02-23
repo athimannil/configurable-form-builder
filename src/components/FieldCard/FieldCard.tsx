@@ -101,21 +101,23 @@ const FieldCard: FC<FieldCardProps> = memo(
               }
             />
           </div>
-          <div className="field-card__row">
-            <label className="field-card__checkbox-label">
-              <span className="field-card__checkbox-text">
-                {field.required ? 'Required' : 'Optional'}
-              </span>
-              <input
-                type="checkbox"
-                className="field-card__checkbox"
-                checked={field.required}
-                onChange={() =>
-                  handleFieldChange(field.id, { required: !field.required })
-                }
-              />
-            </label>
-          </div>
+          {!isGroup && (
+            <div className="field-card__row">
+              <label className="field-card__checkbox-label">
+                <span className="field-card__checkbox-text">
+                  {field.required ? 'Required' : 'Optional'}
+                </span>
+                <input
+                  type="checkbox"
+                  className="field-card__checkbox"
+                  checked={field.required}
+                  onChange={() =>
+                    handleFieldChange(field.id, { required: !field.required })
+                  }
+                />
+              </label>
+            </div>
+          )}
           {isNumber && (
             <>
               <div className="field-card__row">

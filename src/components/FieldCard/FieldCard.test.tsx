@@ -5,7 +5,7 @@ import { describe, it, expect } from 'vitest';
 import FieldCard from './FieldCard';
 
 import { FormBuilderProvider } from '@/context/FormBuilderContext';
-import { createField } from '@/utils/fieldFactory';
+import createField from '@/utils/fieldFactory';
 
 describe('FieldCard', () => {
   it('renders text field and allows label editing', async () => {

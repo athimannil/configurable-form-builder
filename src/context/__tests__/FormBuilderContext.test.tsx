@@ -7,7 +7,7 @@ import {
   FormBuilderProvider,
   FormBuilderContext,
 } from '@/context/FormBuilderContext';
-import { createField } from '@/utils/fieldFactory';
+import createField from '@/utils/fieldFactory';
 
 const TestConsumer = () => {
   const ctx = useContext(FormBuilderContext);

@@ -9,7 +9,7 @@ const validateConfig = (fields: unknown): fields is FormField[] => {
   return fields.every((field) => validateField(field, 0));
 };
 
-function validateField(field: unknown, depth: number): field is FormField {
+const validateField = (field: unknown, depth: number): field is FormField => {
   if (typeof field !== 'object' || field === null) return false;
 
   const fieldData = field as Record<string, unknown>;
@@ -51,6 +51,6 @@ function validateField(field: unknown, depth: number): field is FormField {
   }
 
   return true;
-}
+};
 
 export default validateConfig;

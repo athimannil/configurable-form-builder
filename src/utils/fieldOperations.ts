@@ -2,10 +2,10 @@ import generateId from './idGenerator';
 
 import type { FormField } from '@/types/fields';
 
-export function findFieldById(
+const findFieldById = (
   fields: FormField[],
   id: string
-): FormField | undefined {
+): FormField | undefined => {
   for (const field of fields) {
     if (field.id === id) {
       return field;
@@ -20,13 +20,13 @@ export function findFieldById(
   }
 
   return undefined;
-}
+};
 
-export function addField(
+const addField = (
   fields: FormField[],
   parentId: string | null,
   newField: FormField
-): FormField[] {
+): FormField[] => {
   if (parentId === null) {
     return [...fields, newField];
   }
@@ -48,9 +48,9 @@ export function addField(
 
     return field;
   });
-}
+};
 
-export function deleteField(fields: FormField[], fieldId: string): FormField[] {
+const deleteField = (fields: FormField[], fieldId: string): FormField[] => {
   const result = fields.reduce<FormField[]>((acc, field) => {
     if (field.id === fieldId) {
       return acc;
@@ -67,13 +67,13 @@ export function deleteField(fields: FormField[], fieldId: string): FormField[] {
   }, []);
 
   return result;
-}
+};
 
-export function updateField(
+const updateField = (
   fields: FormField[],
   fieldId: string,
   changes: Partial<Omit<FormField, 'id' | 'type'>>
-): FormField[] {
+): FormField[] => {
   return fields.map((field) => {
     if (field.id === fieldId) {
       return { ...field, ...changes };
@@ -88,13 +88,13 @@ export function updateField(
 
     return field;
   });
-}
+};
 
-export function moveField(
+const moveField = (
   fields: FormField[],
   fieldId: string,
   direction: 'up' | 'down'
-): FormField[] {
+): FormField[] => {
   const fieldIndex = fields.findIndex((field) => field.id === fieldId);
 
   if (fieldIndex !== -1) {
@@ -121,9 +121,9 @@ export function moveField(
     }
     return field;
   });
-}
+};
 
-export function assignNewIds(fields: FormField[]): FormField[] {
+const assignNewIds = (fields: FormField[]): FormField[] => {
   return fields.map((field) => {
     const newId = generateId();
     if (field.type === 'group') {
@@ -135,4 +135,13 @@ export function assignNewIds(fields: FormField[]): FormField[] {
     }
     return { ...field, id: newId };
   });
-}
+};
+
+export {
+  findFieldById,
+  addField,
+  deleteField,
+  updateField,
+  moveField,
+  assignNewIds,
+};

@@ -3,7 +3,7 @@ import { useContext, useCallback, memo } from 'react';
 import { FormBuilderContext } from '@/context/FormBuilderContext';
 import './FieldList.css';
 import type { FieldType, FormField } from '@/types/fields';
-import { createField } from '@/utils/fieldFactory';
+import createField from '@/utils/fieldFactory';
 import FieldCard from '@/components/FieldCard';
 
 const maxDepth = 3;
@@ -20,7 +20,7 @@ const FieldList = memo(
     parentId?: string;
     depth?: number;
   }) => {
-    const { dispatch } = useContext(FormBuilderContext);
+    const { dispatch } = useContext(FormBuilderContext)!;
 
     const handleAddField = useCallback(
       (type: FieldType) => {

@@ -7,8 +7,8 @@ import {
   updateField,
   moveField,
 } from '../fieldOperations';
-import { createField } from '../fieldFactory';
 
+import createField from '@/utils/fieldFactory';
 import type { FormField, GroupField } from '@/types/fields';
 
 describe('fieldOperations', () => {

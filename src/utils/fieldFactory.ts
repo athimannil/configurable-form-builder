@@ -2,7 +2,7 @@ import generateId from './idGenerator';
 
 import type { FieldType, FormField } from '@/types/fields';
 
-export function createField(type: FieldType): FormField {
+const createField = (type: FieldType): FormField => {
   const baseField = {
     id: generateId(),
     label: '',
@@ -36,4 +36,6 @@ export function createField(type: FieldType): FormField {
       throw new Error(`Unknown field type: ${_exhaustive}`);
     }
   }
-}
+};
+
+export default createField;
