@@ -2,17 +2,17 @@
 
 An interactive React component that allows users to construct forms, configure fields, manage nested groups, preview the final form live, and export/import configurations as JSON.
 
-## Features
+## ✨ Features
 
-- **Three Field Types**: `text`, `number`, and `group` (recursive nesting)
+- **Three Field Types**: `text`, `number`, and `group` (recursive nesting up to 3 levels)
 - **Field Configuration**: Label, required toggle, min/max for numbers
-- **Live Preview**: Real-time form rendering with validation, auto-syncs when fields change
+- **Live Preview**: Real-time form rendering with validation — auto-syncs when fields change
 - **Reorder Fields**: Move up/down within the same group level
 - **Export/Import**: JSON configuration with deep structural validation
 - **Accessible**: ARIA labels, live regions for validation errors, keyboard navigable
 - **No External Dependencies**: No state management or form libraries
 
-## Tech Stack
+## 🛠 Tech Stack
 
 - React 19 + TypeScript
 - Vite (build tool)
@@ -20,7 +20,32 @@ An interactive React component that allows users to construct forms, configure f
 - Context API + `useReducer` (state management)
 - Custom CSS with BEM methodology (no UI frameworks)
 
-## Architecture
+## 🚀 Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+## 🧪 Testing
+
+```bash
+npm test              # Run all tests
+npm run test:coverage # Run with coverage report
+```
+
+## 📜 Scripts
+
+| Script                  | Description              |
+| ----------------------- | ------------------------ |
+| `npm run dev`           | Start development server |
+| `npm run build`         | Production build         |
+| `npm run preview`       | Preview production build |
+| `npm test`              | Run tests in watch mode  |
+| `npm run test:coverage` | Generate coverage report |
+| `npm run lint`          | Run ESLint               |
+
+## 🏗 Architecture
 
 ```
 src/
@@ -46,7 +71,15 @@ src/
     └── validateFields.ts      # Form submission validation
 ```
 
-### Design Decisions
+### 🔀 Data Flow
+
+```
+User Action → dispatch(action) → formBuilderReducer → new state → re-render
+                                                                    ↓
+                                              PreviewPanel ← useFormPreview(fields)
+```
+
+### 📐 Design Decisions
 
 | Decision                     | Rationale                                                    |
 | ---------------------------- | ------------------------------------------------------------ |
@@ -58,35 +91,11 @@ src/
 | Discriminated unions         | Type-safe field handling with exhaustive checks              |
 | `aria-live` regions          | Screen readers announce validation errors dynamically        |
 
-### Data Flow
+## ⚖️ Constraints & Trade-offs
 
-```
-User Action → dispatch(action) → formBuilderReducer → new state → re-render
-                                                                    ↓
-                                              PreviewPanel ← useFormPreview(fields)
-```
-
-## Getting Started
-
-```bash
-npm install
-npm run dev
-```
-
-## Testing
-
-```bash
-npm test              # Run all tests
-npm run test:coverage # Run with coverage report
-```
-
-## Scripts
-
-| Script                  | Description              |
-| ----------------------- | ------------------------ |
-| `npm run dev`           | Start development server |
-| `npm run build`         | Production build         |
-| `npm run preview`       | Preview production build |
-| `npm test`              | Run tests in watch mode  |
-| `npm run test:coverage` | Generate coverage report |
-| `npm run lint`          | Run ESLint               |
+| Constraint            | How it's handled                                                                           |
+| --------------------- | ------------------------------------------------------------------------------------------ |
+| Max nesting depth = 3 | Enforced in `FieldList` (hides group button) and `validateConfig` (rejects deeper imports) |
+| No drag & drop        | Move up/down buttons per the spec — avoids library dependencies                            |
+| No form library       | Hand-rolled validation in `validateFields.ts` with recursive group support                 |
+| Stale preview values  | `useFormPreview` filters `rawValues` against `currentIds` derived from current field tree  |

@@ -21,14 +21,14 @@ const FieldCard: FC<FieldCardProps> = memo(
     const isGroup = field.type === 'group';
     const isNumber = field.type === 'number';
 
-    const handMoveField = useCallback(
+    const handleMoveField = useCallback(
       (fieldId: string, direction: 'up' | 'down') => {
         dispatch({ type: 'MOVE_FIELD', payload: { fieldId, direction } });
       },
       [dispatch]
     );
 
-    const handDeleteField = useCallback(
+    const handleDeleteField = useCallback(
       (fieldId: string) => {
         dispatch({ type: 'DELETE_FIELD', payload: { fieldId } });
       },
@@ -66,7 +66,7 @@ const FieldCard: FC<FieldCardProps> = memo(
               className="field-card__btn-sm"
               disabled={index === 0}
               title="Move up"
-              onClick={() => handMoveField(field.id, 'up')}
+              onClick={() => handleMoveField(field.id, 'up')}
             >
               ↑
             </button>
@@ -74,14 +74,14 @@ const FieldCard: FC<FieldCardProps> = memo(
               className="field-card__btn-sm"
               disabled={index === total - 1}
               title="Move down"
-              onClick={() => handMoveField(field.id, 'down')}
+              onClick={() => handleMoveField(field.id, 'down')}
             >
               ↓
             </button>
             <button
               className="field-card__btn-sm field-card__btn-sm--delete"
               title="Delete field"
-              onClick={() => handDeleteField(field.id)}
+              onClick={() => handleDeleteField(field.id)}
             >
               ✕
             </button>

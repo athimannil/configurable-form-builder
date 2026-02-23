@@ -16,13 +16,25 @@ const getLeafFieldIds = (fields: FormField[]): string[] => {
 };
 
 const useFormPreview = (fields: FormField[]) => {
-  const [values, setValues] = useState<Record<string, string>>({});
+  const [rawValues, setRawValues] = useState<Record<string, string>>({});
   const [showError, setShowError] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
+  const currentIds = useMemo(() => new Set(getLeafFieldIds(fields)), [fields]);
+
+  const values = useMemo(() => {
+    const cleaned: Record<string, string> = {};
+    for (const id of Object.keys(rawValues)) {
+      if (currentIds.has(id)) {
+        cleaned[id] = rawValues[id];
+      }
+    }
+    return cleaned;
+  }, [rawValues, currentIds]);
+
   const handleChange = useCallback(
     (fieldId: string, value: string | number) => {
-      setValues((prevValues) => ({
+      setRawValues((prevValues) => ({
         ...prevValues,
         [fieldId]: String(value),
       }));
@@ -55,7 +67,7 @@ const useFormPreview = (fields: FormField[]) => {
       },
       {} as Record<string, string>
     );
-    setValues(resetValues);
+    setRawValues(resetValues);
     setShowError(false);
     setSubmitted(false);
   }, [fields]);

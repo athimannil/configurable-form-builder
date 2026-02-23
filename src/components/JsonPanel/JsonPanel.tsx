@@ -1,4 +1,10 @@
-import { useContext, useState, type ChangeEvent, type FC } from 'react';
+import {
+  useContext,
+  useState,
+  useMemo,
+  type ChangeEvent,
+  type FC,
+} from 'react';
 
 import './JsonPanel.css';
 import type { FormField } from '@/types/fields';
@@ -21,7 +27,10 @@ const JsonPanel: FC<{ fields: FormField[] }> = ({ fields }) => {
     setMode(mode === 'import' ? null : 'import');
   };
 
-  const exportData = JSON.stringify({ fields }, null, 2);
+  const exportData = useMemo(
+    () => JSON.stringify({ fields }, null, 2),
+    [fields]
+  );
 
   const handleCopy = () => {
     navigator.clipboard.writeText(exportData).then(() => {
