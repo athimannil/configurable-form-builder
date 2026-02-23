@@ -1,73 +1,92 @@
-# React + TypeScript + Vite
+# Configurable Form Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive React component that allows users to construct forms, configure fields, manage nested groups, preview the final form live, and export/import configurations as JSON.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Three Field Types**: `text`, `number`, and `group` (recursive nesting)
+- **Field Configuration**: Label, required toggle, min/max for numbers
+- **Live Preview**: Real-time form rendering with validation, auto-syncs when fields change
+- **Reorder Fields**: Move up/down within the same group level
+- **Export/Import**: JSON configuration with deep structural validation
+- **Accessible**: ARIA labels, live regions for validation errors, keyboard navigable
+- **No External Dependencies**: No state management or form libraries
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19 + TypeScript
+- Vite (build tool)
+- Vitest + React Testing Library (testing)
+- Context API + `useReducer` (state management)
+- Custom CSS with BEM methodology (no UI frameworks)
 
-## Expanding the ESLint configuration
+## Architecture
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/
+│   ├── FieldCard/       # Individual field editor card (memo)
+│   ├── FieldList/       # Recursive list of field cards (memo, depth-limited)
+│   ├── FormBuilder/     # Root layout component
+│   ├── Header/          # App header with field count
+│   ├── JsonPanel/       # Export/Import JSON panel with validation
+│   ├── PreviewField/    # Single field in preview mode (memo)
+│   └── PreviewPanel/    # Live form preview panel (memo)
+├── context/
+│   └── FormBuilderContext.tsx  # Global state via useReducer
+├── hooks/
+│   └── useFormPreview.ts      # Form preview logic with stale value cleanup
+├── types/
+│   └── fields.ts              # Discriminated union type definitions
+└── utils/
+    ├── fieldFactory.ts        # Field creation factory (exhaustive switch)
+    ├── fieldOperations.ts     # CRUD + move + assignNewIds (recursive)
+    ├── idGenerator.ts         # UUID generation
+    ├── validateConfig.ts      # Deep import validation with depth guard
+    └── validateFields.ts      # Form submission validation
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Design Decisions
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Decision                     | Rationale                                                    |
+| ---------------------------- | ------------------------------------------------------------ |
+| `useReducer` + Context       | Centralised, predictable state for complex nested operations |
+| Recursive field operations   | Natural fit for arbitrarily nested group structures          |
+| `React.memo` + `useCallback` | Prevent unnecessary re-renders in deeply nested field trees  |
+| BEM CSS                      | Predictable, scoped styling without CSS-in-JS overhead       |
+| Deep import validation       | Prevent runtime errors from malformed JSON configurations    |
+| Discriminated unions         | Type-safe field handling with exhaustive checks              |
+| `aria-live` regions          | Screen readers announce validation errors dynamically        |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Data Flow
+
 ```
+User Action → dispatch(action) → formBuilderReducer → new state → re-render
+                                                                    ↓
+                                              PreviewPanel ← useFormPreview(fields)
+```
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+## Testing
+
+```bash
+npm test              # Run all tests
+npm run test:coverage # Run with coverage report
+```
+
+## Scripts
+
+| Script                  | Description              |
+| ----------------------- | ------------------------ |
+| `npm run dev`           | Start development server |
+| `npm run build`         | Production build         |
+| `npm run preview`       | Preview production build |
+| `npm test`              | Run tests in watch mode  |
+| `npm run test:coverage` | Generate coverage report |
+| `npm run lint`          | Run ESLint               |

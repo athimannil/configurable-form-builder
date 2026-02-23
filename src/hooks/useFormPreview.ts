@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useCallback, useMemo, type FormEvent } from 'react';
 
 import type { FormField, GroupField } from '@/types/fields';
 import validateFields from '@/utils/validateFields';
@@ -16,30 +16,37 @@ const getLeafFieldIds = (fields: FormField[]): string[] => {
 };
 
 const useFormPreview = (fields: FormField[]) => {
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState<Record<string, string>>({});
   const [showError, setShowError] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (fieldId: string, value: string | number) => {
-    setValues((prevValues) => ({
-      ...prevValues,
-      [fieldId]: value,
-    }));
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setShowError(true);
-    // const errors = showError ? validateFields(fields, values) : {};
-    const errorList = validateFields(fields, values);
-    if (Object.keys(errorList).length > 0) {
+  const handleChange = useCallback(
+    (fieldId: string, value: string | number) => {
+      setValues((prevValues) => ({
+        ...prevValues,
+        [fieldId]: String(value),
+      }));
       setSubmitted(false);
-    } else {
-      setSubmitted(true);
-    }
-  };
+    },
+    []
+  );
 
-  function handleReset() {
+  const handleSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      setShowError(true);
+
+      const errorList = validateFields(fields, values);
+      if (Object.keys(errorList).length > 0) {
+        setSubmitted(false);
+      } else {
+        setSubmitted(true);
+      }
+    },
+    [fields, values]
+  );
+
+  const handleReset = useCallback(() => {
     const leafFieldIds = getLeafFieldIds(fields);
     const resetValues = leafFieldIds.reduce(
       (acc, id) => {
@@ -51,9 +58,12 @@ const useFormPreview = (fields: FormField[]) => {
     setValues(resetValues);
     setShowError(false);
     setSubmitted(false);
-  }
+  }, [fields]);
 
-  const errors = showError ? validateFields(fields, values) : {};
+  const errors = useMemo(
+    () => (showError ? validateFields(fields, values) : {}),
+    [showError, fields, values]
+  );
 
   return {
     handleChange,

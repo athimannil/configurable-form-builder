@@ -40,4 +40,15 @@ describe('FieldList', () => {
 
     expect(textButtons.length).toBeGreaterThan(1);
   });
+
+  it('hides group button at max depth', () => {
+    render(
+      <FormBuilderProvider>
+        <FieldList fields={[]} depth={3} />
+      </FormBuilderProvider>
+    );
+    expect(screen.getByText('+ text')).toBeInTheDocument();
+    expect(screen.getByText('+ number')).toBeInTheDocument();
+    expect(screen.queryByText('+ group')).not.toBeInTheDocument();
+  });
 });

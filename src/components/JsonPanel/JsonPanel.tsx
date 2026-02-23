@@ -3,6 +3,7 @@ import { useContext, useState, type ChangeEvent, type FC } from 'react';
 import './JsonPanel.css';
 import type { FormField } from '@/types/fields';
 import { assignNewIds } from '@/utils/fieldOperations';
+import validateConfig from '@/utils/validateConfig';
 import { FormBuilderContext } from '@/context/FormBuilderContext';
 
 const JsonPanel: FC<{ fields: FormField[] }> = ({ fields }) => {
@@ -39,6 +40,12 @@ const JsonPanel: FC<{ fields: FormField[] }> = ({ fields }) => {
       const parsed = JSON.parse(importText);
       if (!parsed.fields || !Array.isArray(parsed.fields)) {
         throw new Error('Invalid JSON structure: "fields" array is missing');
+      }
+
+      if (!validateConfig(parsed.fields)) {
+        throw new Error(
+          'Invalid field configuration: each field must have valid id, type, label, and required properties'
+        );
       }
 
       const newData = { fields: assignNewIds(parsed.fields) };
@@ -101,8 +108,9 @@ const JsonPanel: FC<{ fields: FormField[] }> = ({ fields }) => {
           <textarea
             className="json-panel__textarea"
             placeholder="Paste your JSON here..."
+            value={importText}
             onChange={handleImportText}
-            rows={10}
+            rows={8}
           />
           {importError && <p className="json-panel__error">{importError}</p>}
           <button

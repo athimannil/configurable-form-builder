@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { memo, type FC } from 'react';
 
 import PreviewField from '@/components/PreviewField';
 import useFormPreview from '@/hooks/useFormPreview';
@@ -11,16 +11,19 @@ interface PreviewPanelProps {
   error?: string;
 }
 
-const PreviewPanel: FC<PreviewPanelProps> = ({ fields }) => {
+const PreviewPanel: FC<PreviewPanelProps> = memo(({ fields }) => {
   const { handleSubmit, handleChange, handleReset, values, errors, submitted } =
     useFormPreview(fields);
 
   if (fields.length === 0) {
     return (
-      <section className="preview-panel">
+      <section className="preview-panel" aria-label="Form preview">
         <div className="preview-panel__header">
           <h2 className="preview-panel__title-text">Live preview</h2>
-          <span className="preview-panel__title-live" />
+          <span
+            className="preview-panel__title-live"
+            aria-label="Live indicator"
+          />
         </div>
         <div className="preview-panel__content preview-panel__content--empty">
           <p className="preview-panel__empty-message">
@@ -32,10 +35,13 @@ const PreviewPanel: FC<PreviewPanelProps> = ({ fields }) => {
   }
 
   return (
-    <section className="preview-panel">
+    <section className="preview-panel" aria-label="Form preview">
       <div className="preview-panel__header">
         <h3 className="preview-panel__title-text">Live preview</h3>
-        <span className="preview-panel__title-live" />
+        <span
+          className="preview-panel__title-live"
+          aria-label="Live indicator"
+        />
       </div>
       <div className="preview-panel__content">
         <form
@@ -54,7 +60,7 @@ const PreviewPanel: FC<PreviewPanelProps> = ({ fields }) => {
           ))}
 
           {submitted && Object.keys(errors).length === 0 && (
-            <div className="preview-panel__submit-success">
+            <div className="preview-panel__submit-success" role="status">
               Form submitted successfully!
             </div>
           )}
@@ -75,6 +81,8 @@ const PreviewPanel: FC<PreviewPanelProps> = ({ fields }) => {
       </div>
     </section>
   );
-};
+});
+
+PreviewPanel.displayName = 'PreviewPanel';
 
 export default PreviewPanel;
